@@ -1,18 +1,20 @@
 cask "ghosttile" do
-  version "15,15,1510040474"
-  sha256 "6f723c7489a272a82648a3fb2a4ad0f91f6bd3d79eea748ea20a046a3aefe0ab"
+  version "2.0.9"
+  sha256 "e069ab7d636c7bae8bb0246a050bd40111c73b1ad925c63a7b35cf1436c96894"
 
-  url "https://dl.devmate.com/im.kernelpanic.GhostTile/#{version.csv.second}/#{version.csv.third}/GhostTile-#{version.csv.first}.zip",
-      verified: "dl.devmate.com/im.kernelpanic.GhostTile/"
-  name "Kernelpanic GhostTile"
+  url "https://github.com/hewigovens/ghosttile-cli/releases/download/v#{version}/GhostTile-#{version}.zip",
+      verified: "github.com/hewigovens/ghosttile-cli/"
   name "GhostTile"
   desc "Hide your running applications from Dock"
-  homepage "https://ghosttile.kernelpanic.im/"
+  homepage "https://ghosttile.hewig.dev/"
 
-  deprecate! date: "2024-10-14", because: :unmaintained
-  disable! date: "2025-10-14", because: :unmaintained
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
 
-  depends_on :macos
+  auto_updates true
+  depends_on macos: :sequoia
 
   app "GhostTile.app"
 
@@ -24,8 +26,4 @@ cask "ghosttile" do
     "~/Library/Logs/GhostTile",
     "~/Library/Preferences/im.kernelpanic.GhostTile.plist",
   ]
-
-  caveats do
-    requires_rosetta
-  end
 end
